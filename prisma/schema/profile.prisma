@@ -2,6 +2,7 @@ model Profile {
     id       String   @id @default(uuid())
     profileId String?  
     bio      String?
+    profilePhoto String?
     userID   String   @unique
     user     User     @relation(fields: [userID], references: [id])
     createdAt DateTime @default(now())
