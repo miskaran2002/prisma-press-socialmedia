@@ -7,7 +7,7 @@ const PORT = config.port;
 
 async function main() {
     try {
-        // await prisma.$connect();
+         await prisma.$connect();
         console.log("Connected to the database successfully.");
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
@@ -15,7 +15,7 @@ async function main() {
 
     }catch(error) {
         console.error("Error starting the server:", error);
-        // await prisma.$disconnect(); // Disconnect from the database if there was an error
+         await prisma.$disconnect(); // Disconnect from the database if there was an error
         process.exit(1);
 
     }
