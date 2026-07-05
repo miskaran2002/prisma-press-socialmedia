@@ -6,5 +6,7 @@ enum ActiveStatus {
 enum Role {
     ADMIN
     USER
+    AUTHOR
+
     
 }

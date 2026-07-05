@@ -24,7 +24,7 @@ app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
 
 app.get("/", (req:Request, res:Response) => {
-    res.send("Hello World");
+    res.send("welcome to the Prisma-press social media app");
 })
 
 
