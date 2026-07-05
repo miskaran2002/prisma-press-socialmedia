@@ -13,7 +13,7 @@ const loginResult = catchAsync(async (req:Request, res:Response, next:NextFuncti
         success: true,
         status: httpStatus.OK,
         message: "User logged in successfully",
-        data: loginResult,
+        data: { user },
     }); 
 
 
