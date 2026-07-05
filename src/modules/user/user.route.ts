@@ -9,6 +9,21 @@ const router = Router();
 
 router.post("/register", userController.registerUser);
 
+declare global {
+    namespace Express {
+        interface Request {
+            user?: {
+                id: string;
+                name: string;
+                email: string;
+                role: Role;
+            };
+        }
+
+    }
+
+};
+
 
 
 router.get("/me",
@@ -36,6 +51,13 @@ router.get("/me",
                 status:httpStatus.FORBIDDEN,
             });
             }
+
+            req.user = {
+                id,
+                name,   
+                email,
+                role,
+            };
         next();
 
     }
