@@ -3,8 +3,7 @@ import httpStatus from "http-status";
 import { userService } from "./user.service";
 import { catchAsync } from "../../utilities/catchAsync";
 import { sendResponse } from "../../utilities/sendResponse";
-import config from "../../config";
-import { jwtUtils } from "../../utilities/jwt";
+
 
 
 
