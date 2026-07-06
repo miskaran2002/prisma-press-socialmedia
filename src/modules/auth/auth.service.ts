@@ -17,6 +17,12 @@ const loginUser = async (payload: ILoginUser) => {
     if (!user) {
         throw new Error("User does not exist");
      }
+
+     if(user.activeStatus === "BLOCKED"){
+        throw new Error("your account is blocked, please contact admin");
+
+               
+     }
     
     const isPasswordMatched = await bcrypt.compare(password, user.password);
 
