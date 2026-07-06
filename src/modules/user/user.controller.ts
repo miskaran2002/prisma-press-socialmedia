@@ -6,7 +6,7 @@ import { sendResponse } from "../../utilities/sendResponse";
 
 
 
-
+// register user
 const registerUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const payload = req.body;
 
@@ -22,7 +22,7 @@ const registerUser = catchAsync(async (req: Request, res: Response, next: NextFu
 });
 
 
-
+// get my profile
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
     
@@ -41,7 +41,7 @@ const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFu
 
 });
 
-
+// update my profile
 const updateMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const userId= req.user?.id as string;
     const payload = req.body;
