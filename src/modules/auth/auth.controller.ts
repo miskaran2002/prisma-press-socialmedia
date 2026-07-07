@@ -39,6 +39,30 @@ const loginResult = catchAsync(async (req:Request, res:Response, next:NextFuncti
 
 });
 
+const refreshToken = catchAsync(async (req:Request, res:Response, next:NextFunction) => {
+    const refreshToken = req.cookies.refreshToken;
+
+    const {accessToken} = await authService.refreshToken(refreshToken);
+
+
+     res.cookie("accessToken", accessToken, {
+        httpOnly: true,
+        secure:false,
+        sameSite: "none",
+        maxAge: 24 * 60 * 60 * 1000, // 1 day
+         
+    })
+
+    sendResponse(res, {
+        success: true,
+        status: httpStatus.OK,
+        message: "Token refreshed successfully",
+        data: { accessToken },
+    })
+    
+})
+
 export const authController = {
     loginResult,
+    refreshToken
 };
