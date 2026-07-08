@@ -24,13 +24,18 @@ sendResponse(res,{
 )
 
 
-
-
-
-
-
 })
 const getAllPost =catchAsync (async (req: Request, res: Response,Next: NextFunction) => {
+
+    const result= await postService.getAllPost();
+    sendResponse(res,{
+        success:true,
+        status:httpStatus.OK,
+        message:"Post fetched successfully",
+        data:result,
+    })
+
+   
     
 })
 
