@@ -57,6 +57,19 @@ const getPostById =catchAsync (async (req: Request, res: Response,Next: NextFunc
 })
 
 const updatePost =catchAsync (async (req: Request, res: Response,Next: NextFunction) => {
+    const authorId = req.user?.id;
+
+    const isAdmin= req.user?.role === "ADMIN"
+
+    const postId = req.params.postId;
+    const payload = req.body;
+    const result= await postService.updatePost(postId as string,payload,authorId as string,isAdmin);
+    sendResponse(res,{
+        success:true,
+        status:httpStatus.OK,
+        message:"Post updated successfully",
+        data:result,
+    })
     
 })
 

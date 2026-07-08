@@ -9,3 +9,13 @@ export interface IcreatePostPayload {
     tags: string[];
 }
 
+export interface IupdatePostPayload {
+    title?: string;
+    content?: string;
+    thumbnail?: string;
+    isFeatured?: boolean;
+    status?: PostStatus
+    tags?: string[];
+}
+
+
