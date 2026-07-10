@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { catchAsync } from "../utilities/catchAsync";
+import { catchAsync } from "../../utilities/catchAsync";
+
 
 
 const createComment = catchAsync(async (req:Request, res:Response, next:NextFunction) => {

@@ -1,9 +1,7 @@
 import { Router } from "express";
-
-import { Role } from "../../generated/prisma/enums";
-
-import { auth } from "../mddlewires/auth";
 import { commentController } from "./coment.controller";
+import { auth } from "../../mddlewires/auth";
+import { Role } from "../../../generated/prisma/enums";
 
 const router = Router();
 
