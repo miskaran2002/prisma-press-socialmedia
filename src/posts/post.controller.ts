@@ -83,12 +83,12 @@ const deletePost =catchAsync (async (req: Request, res: Response,Next: NextFunct
         throw new Error("Post id is required")
     }
 
-    const result= await postService.deletePost(postId as string,authorId as string,isAdmin);
+    await postService.deletePost(postId as string,authorId as string,isAdmin);
     sendResponse(res,{
         success:true,
         status:httpStatus.OK,
         message:"Post deleted successfully",
-        data:result,
+        data:null,
     })
     
 })

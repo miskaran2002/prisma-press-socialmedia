@@ -130,13 +130,13 @@ const deletePost =async( postId:string,authorId:string,isAdmin:boolean)=>{
     if(!isAdmin && post.authorId !== authorId){
         throw new Error("You are not authorized to delete this post")
     }
-    const result = await prisma.post.delete({
+    await prisma.post.delete({
         where:{
             id:postId
         }
       
     })
-    return result
+    
 
     
 }
