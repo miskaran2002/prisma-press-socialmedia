@@ -1,5 +1,5 @@
 
-import { CommentStatus } from "../../../generated/prisma/enums"
+import { CommentStatus, PostStatus } from "../../../generated/prisma/enums"
 import { prisma } from "../../lib/prisma"
 import { IcreatePostPayload, IupdatePostPayload } from "./post.interface"
 
@@ -201,9 +201,95 @@ const deletePost =async( postId:string,authorId:string,isAdmin:boolean)=>{
 }
 
 // not done yet
-const getPostsStats =()=>{
-    
+const getPostsStats =async()=>{
+
+    const transactionResult = await prisma.$transaction(
+        async(tx)=>{
+        const[
+            totalPosts,
+            publishedPosts,
+            draftPosts,
+            archivedPosts,
+            totalComments,
+            totalApprovedComments,
+            totalRegectedComments,
+            totalPostViewsAggregate,
+
+
+
+        ]=await Promise.all([
+            await tx.post.count(),
+            await tx.post.count({
+                where:{
+                    status:PostStatus.PUBLISHED
+                }
+            }),
+            await tx.post.count({
+                where:{
+                    status:PostStatus.DRAFT
+                }
+            }),
+            await tx.post.count({
+                where:{
+                    status:PostStatus.ARCHIVED
+                }
+            }),
+            await tx.comment.count(),
+            await tx.comment.count({
+                where:{
+                    status:CommentStatus.APPROVED
+                }
+            }),
+            await tx.comment.count({
+                where:{
+                    status:CommentStatus.REJECTED
+                }
+                
+            }
+        ),
+        await tx.post.aggregate({
+            _sum:{
+                views: true
+            }
+        }),
+        
+
+
+        ]);
+        return{
+            totalPosts,
+            publishedPosts,
+            draftPosts,
+            archivedPosts,
+            totalComments,
+            totalApprovedComments,
+            totalRegectedComments,
+            totalviews: totalPostViewsAggregate._sum.views
+           
+
+        }
+    }
+    );
+
+    return transactionResult
+        
+        
+        
+
+       
 }
+
+
+
+
+
+    
+
+
+  
+
+   
+    
 const getMyPosts =async(authorId:string)=>{
     const result =await prisma.post.findMany({
         where:{
