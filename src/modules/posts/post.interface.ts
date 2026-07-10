@@ -1,4 +1,5 @@
-import { PostStatus } from "../../generated/prisma/enums";
+import { PostStatus } from "../../../generated/prisma/enums";
+
 
 export interface IcreatePostPayload {
     title: string;

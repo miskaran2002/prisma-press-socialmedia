@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express"
-import { catchAsync } from "../utilities/catchAsync"
+
 import { postService } from "./post.service";
 import httpStatus from "http-status";
-import { sendResponse } from "../utilities/sendResponse";
+
+import { catchAsync } from "../../utilities/catchAsync";
+import { sendResponse } from "../../utilities/sendResponse";
 
 
 const createPost =catchAsync (async (req: Request, res: Response,Next: NextFunction) => {

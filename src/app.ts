@@ -4,8 +4,9 @@ import cors from "cors";
 import config from "./config";
 import { userRoutes } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.routes";
-import { postRoutes } from "./posts/post.route";
+
 import { commentRoutes } from "./comments/comment.route";
+import { postRoutes } from "./modules/posts/post.route";
 
 
 const app: Application = express();

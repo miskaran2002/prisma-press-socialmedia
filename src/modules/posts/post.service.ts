@@ -1,5 +1,6 @@
-import { CommentStatus } from "../../generated/prisma/enums"
-import { prisma } from "../lib/prisma"
+
+import { CommentStatus } from "../../../generated/prisma/enums"
+import { prisma } from "../../lib/prisma"
 import { IcreatePostPayload, IupdatePostPayload } from "./post.interface"
 
 
