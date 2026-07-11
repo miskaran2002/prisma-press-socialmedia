@@ -6,9 +6,16 @@ import { userRoutes } from "./modules/user/user.route";
 import { authRoutes } from "./modules/auth/auth.routes";
 import { postRoutes } from "./modules/posts/post.route";
 import { commentRoutes } from "./modules/comments/comment.route";
+import path from "node:path";
+import { notFound } from "./mddlewires/notFound";
 
 
 const app: Application = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
 app.use(cors(
     {
         origin: config.app_url,
@@ -16,9 +23,11 @@ app.use(cors(
     }
 ));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
+
+app.get("/", (req:Request, res:Response) => {
+    res.send("welcome to the Prisma-press social media app");
+})
+
 
 
 
@@ -27,9 +36,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/posts",postRoutes);
 app.use("/api/comments", commentRoutes);
 
-app.get("/", (req:Request, res:Response) => {
-    res.send("welcome to the Prisma-press social media app");
-})
+app.use(notFound);
+
 
 
 
