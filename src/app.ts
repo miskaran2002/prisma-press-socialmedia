@@ -8,6 +8,12 @@ import { postRoutes } from "./modules/posts/post.route";
 import { commentRoutes } from "./modules/comments/comment.route";
 import path from "node:path";
 import { notFound } from "./mddlewires/notFound";
+import {globalErrorHandler } from "./mddlewires/globalErrorHandler";
+
+
+
+
+
 
 
 const app: Application = express();
@@ -37,6 +43,8 @@ app.use("/api/posts",postRoutes);
 app.use("/api/comments", commentRoutes);
 
 app.use(notFound);
+
+app.use(globalErrorHandler);
 
 
 
