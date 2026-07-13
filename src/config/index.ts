@@ -4,6 +4,7 @@ import path from "path";
 
 
 
+
 dotenv.config({ path: path.join(process.cwd(), ".env") });
 
 export default {
@@ -14,5 +15,7 @@ export default {
     jwt_access_secret: process.env.JWT_ACCESS_SECRET as string,
     jwt_access_expires_in: process.env.JWT_ACCESS_EXPIRES_IN as string,
     jwt_refresh_secret: process.env.JWT_REFRESH_SECRET as string,
-    jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN as string
+    jwt_refresh_expires_in: process.env.JWT_REFRESH_EXPIRES_IN as string,
+    Stripe_product_key: process.env.STRIPE_PRODUCT_KEY!,
+    Stripe_secret_key: process.env.STRIPE_SECRET_KEY!
 }
