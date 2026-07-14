@@ -32,15 +32,15 @@ const createCheckoutSession =async(userId:string)=>{
     const session = await stripe.checkout.sessions.create({
         line_items:[
             {
-                price: config.Stripe_product_id,
+                price: config.Stripe_product_price_id,
                 quantity: 1,
             }
         ],
         mode: 'subscription',
         customer: stripeCustomerId,
         payment_method_types: ['card'],
-        success_url: "",
-        cancel_url: "",
+        success_url: `${config.app_url}/premium?success=true`,
+        cancel_url: `${config.app_url}/payment?success=false`,
         metadata:{ userId:user.id }
     })
     return session.url
