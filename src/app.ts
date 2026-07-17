@@ -20,10 +20,6 @@ import { stripe } from "./lib/stripe";
 
 const app: Application = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-
 app.use(cors(
     {
         origin: config.app_url,
@@ -31,53 +27,64 @@ app.use(cors(
     }
 ));
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+
+app.use("/api/subscription/webhook", express.raw({ type: "application/json" }));
+
+
+
+
 const endpointSecret= config.stripe_webhook_secret
 
-app.post("/api/subscription/webhook", express.raw({ type: "application/json" }),(request, response) => {
-    let event = request.body;
+// app.post("/api/subscription/webhook", express.raw({ type: "application/json" }),(request, response) => {
+//     let event = request.body;
 
-    console.log("webhook received", event);
-    console.log(request.headers,"stripe req headers");
+//     console.log("webhook received", event);
+//     console.log(request.headers,"stripe req headers");
 
-    if (endpointSecret){
-        const signature = request.headers["stripe-signature"]!;
-        try {
-            // converting event buffer to a valid object
-            event = stripe.webhooks.constructEvent(
-                request.body, signature, endpointSecret);
-        }catch(err:any){
-            console.log(`webhook signature verification failed.`,err.message);
-            return response.status(400).json({
-                 message: err.message
-                 }); 
+//     if (endpointSecret){
+//         const signature = request.headers["stripe-signature"]!;
+//         try {
+//             // converting event buffer to a valid object
+//             event = stripe.webhooks.constructEvent(
+//                 request.body, signature, endpointSecret);
+//         }catch(err:any){
+//             console.log(`webhook signature verification failed.`,err.message);
+//             return response.status(400).json({
+//                  message: err.message
+//                  }); 
 
-        }
-    }
-    console.log("webhook event after try block", event);
-    // Handle the event
-   // Handle the event
-    switch (event.type) {
-        case 'payment_intent.succeeded': {
-            const paymentIntent = event.data.object;
-            console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
-            break;
-        }
-        case 'payment_method.attached': {
-            const paymentMethod = event.data.object;
-            break;
-        }
-        default:
-            // Unhandled event type
-            console.log(`Unhandled event type ${event.type}`);
-    }
+//         }
+//     }
+//     console.log("webhook event after try block", event);
+//     // Handle the event
+//    // Handle the event
+//     switch (event.type) {
+//         case 'payment_intent.succeeded': {
+//             const paymentIntent = event.data.object;
+//             console.log(`PaymentIntent for ${paymentIntent.amount} was successful!`);
+//             break;
+//         }
+//         case 'payment_method.attached': {
+//             const paymentMethod = event.data.object;
+//             break;
+//         }
+//         default:
+//             // Unhandled event type
+//             console.log(`Unhandled event type ${event.type}`);
+//     }
 
-    // switch ব্লকের বাইরে রেসপন্স পাঠান যেন সব ইভেন্টই ২০০ রেসপন্স পায়
-    response.status(200).json({ received: true });
+//     // switch ব্লকের বাইরে রেসপন্স পাঠান যেন সব ইভেন্টই ২০০ রেসপন্স পায়
+//     response.status(200).json({ received: true });
 
         
     
 
-} );
+// } );
+
 
 
 app.get("/", (req:Request, res:Response) => {
